@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
+    <url>
+        <loc>http://eontool.github.io/blog/2013/04/30/test/</loc>
+        <lastmod>2013-04-30T21:58:11-07:00</lastmod>
+    </url>
+    <url>
+        <loc>http://eontool.github.io/blog/archives/</loc>
+        <lastmod>2013-04-30T21:58:11-07:00</lastmod>
+    </url>
+    <url>
+        <loc>http://eontool.github.io/robots.txt</loc>
+        <lastmod>2013-04-30T21:57:02-07:00</lastmod>
+    </url>
+    <url>
+        <loc>http://eontool.github.io/</loc>
+        <lastmod>2013-04-30T21:58:11-07:00</lastmod>
+    </url>
+</urlset>

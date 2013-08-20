@@ -4,7 +4,7 @@
   <title><![CDATA[Category: PyBOMBS | Daniel Domínguez]]></title>
   <link href="http://eontool.github.io/blog/categories/pybombs/atom.xml" rel="self"/>
   <link href="http://eontool.github.io/"/>
-  <updated>2013-08-20T11:03:16-07:00</updated>
+  <updated>2013-08-20T11:05:51-07:00</updated>
   <id>http://eontool.github.io/</id>
   <author>
     <name><![CDATA[Daniel Dominguez]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Instalación de GNU Radio Companion 3.7.0 en Ubuntu 13.04 x64]]></title>
-    <link href="http://eontool.github.io/blog/2013/04/30/test/"/>
+    <link href="http://eontool.github.io/blog/2013/04/30/instalacion-gnuradio-companion/"/>
     <updated>2013-04-30T21:58:00-07:00</updated>
-    <id>http://eontool.github.io/blog/2013/04/30/test</id>
+    <id>http://eontool.github.io/blog/2013/04/30/instalacion-gnuradio-companion</id>
     <content type="html"><![CDATA[<p><img class="center" src="/images/posts/gnuradio_logo.png" width="231" height="49" title="GNU Radio Companion" alt="images"></p>
 
 <p>Para este tutorial trabajaremos con la versión 13.04 x64 de Ubuntu.

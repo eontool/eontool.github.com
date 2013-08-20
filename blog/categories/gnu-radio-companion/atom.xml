@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Daniel Domínguez]]></title>
-  <link href="http://eontool.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: GNU Radio Companion | Daniel Domínguez]]></title>
+  <link href="http://eontool.github.io/blog/categories/gnu-radio-companion/atom.xml" rel="self"/>
   <link href="http://eontool.github.io/"/>
   <updated>2013-08-20T10:35:16-07:00</updated>
   <id>http://eontool.github.io/</id>
@@ -21,13 +21,10 @@
     <content type="html"><![CDATA[<p>Para este tutorial vamos a trabajar con la versión 13.04 en 64 bits de Ubuntu.
 Vamos a utilizar PyBOMBS (Python Build Overlay Managed Bundle System), que es un nuevo método para instalar GNU Radio que resuelve dependencias y hace más sencillo añadir proyectos out-of-tree (plugins).</p>
 
-<p>Antes de iniciar debemos instalar GIT, para ello, abrimos una terminal y ejecutamos el siguiente comando:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install git-core</span></code></pre></td></tr></table></div></figure>
-
-
-
+<p>Antes de iniciar debemos instalar GIT, para ello, abrimos una terminal y ejecutamos el siguiente comando:
+<code>
+$ sudo apt-get install git-core
+</code></p>
 
 <!-- more -->
 

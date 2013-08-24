@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Telecomunicaciones ↯]]></title>
+  <title><![CDATA[Radiolab ↯]]></title>
   <link href="http://eontool.github.io/atom.xml" rel="self"/>
   <link href="http://eontool.github.io/"/>
-  <updated>2013-08-22T17:48:12-07:00</updated>
+  <updated>2013-08-23T23:55:15-07:00</updated>
   <id>http://eontool.github.io/</id>
   <author>
-    <name><![CDATA[Daniel Dominguez]]></name>
+    <name><![CDATA[Daniel Domínguez]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>

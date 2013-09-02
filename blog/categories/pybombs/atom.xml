@@ -4,7 +4,7 @@
   <title><![CDATA[Category: PyBOMBS | Radiolab ↯]]></title>
   <link href="http://eontool.github.io/blog/categories/pybombs/atom.xml" rel="self"/>
   <link href="http://eontool.github.io/"/>
-  <updated>2013-08-26T10:02:04-07:00</updated>
+  <updated>2013-09-02T15:43:24-07:00</updated>
   <id>http://eontool.github.io/</id>
   <author>
     <name><![CDATA[Daniel Domínguez]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Instalación de GNU Radio Companion 3.7.0 en Ubuntu 13.04 x64]]></title>
+    <title type="html"><![CDATA[Instalación de GNU Radio Companion 3.7.x en Ubuntu 13.04 x64]]></title>
     <link href="http://eontool.github.io/blog/2013/04/30/instalacion-gnuradio-companion-en-ubuntu/"/>
     <updated>2013-04-30T21:58:00-07:00</updated>
     <id>http://eontool.github.io/blog/2013/04/30/instalacion-gnuradio-companion-en-ubuntu</id>
@@ -44,26 +44,35 @@ $ mkdir grc &amp;&amp; cd grc
 <code>
 $ git clone git://github.com/pybombs/pybombs
 $ cd pybombs
-</code>
-Instalamos GNU Radio Companion:
+</code></p>
+
+<p>Configuramos PyBOMBS:
+```
+$ ./pybombs config</p>
+
+<p>gituser =
+prefix = /usr/local/
+satisfy_order =
+forcepkgs =
+timeout =
+cmakebuildtype =</p>
+
+<p>```</p>
+
+<p>Instalamos GNU Radio Companion:
 <code>
 $sudo ./pybombs install gnuradio
 </code>
-(Presionamos “Enter” a todas las configuraciones)</p>
-
-<p>Ejecutamos GNU Radio Companion:
-<code>
-$ gnuradio-companion
-</code></p>
-
-<p>En dado caso que esto no funcione, navegamos hasta el directorio grc/pybombs/src/gnuradio/build y allí ejecutamos el comando:
-<code>
-$sudo make install
-</code></p>
+(Esto puede tardar algunos minutos)</p>
 
 <p>Por último actualizamos los links hacia las recientes librerías creadas.
 <code>
 $ sudo ldconfig
+</code></p>
+
+<p>Ejecutamos GNU Radio Companion:
+<code>
+$ gnuradio-companion
 </code></p>
 
 <p>Hemos finalizado la instalación.</p>

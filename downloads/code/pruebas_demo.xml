@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<block>
+  <name>demo</name>
+  <key>pruebas_demo</key>
+  <category>pruebas</category>
+  <import>import pruebas</import>
+  <make>pruebas.demo($)</make>
+
+  <param>
+    <name>Demo</name>
+    <key></key>
+    <type>int</type>
+  </param>
+
+  <sink>
+    <name>in</name>
+    <type>int</type>
+  </sink>
+
+  <source>
+    <name>out</name>
+    <type>int</type>
+  </source>
+</block>

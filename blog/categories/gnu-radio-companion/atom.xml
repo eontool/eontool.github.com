@@ -4,7 +4,7 @@
   <title><![CDATA[Category: GNU Radio Companion | Radiolab ↯]]></title>
   <link href="http://eontool.github.io/blog/categories/gnu-radio-companion/atom.xml" rel="self"/>
   <link href="http://eontool.github.io/"/>
-  <updated>2013-09-02T15:43:24-07:00</updated>
+  <updated>2013-09-02T17:35:10-07:00</updated>
   <id>http://eontool.github.io/</id>
   <author>
     <name><![CDATA[Daniel Domínguez]]></name>
@@ -18,50 +18,37 @@
     <link href="http://eontool.github.io/blog/2013/08/20/construccion-de-modulos-y-bloques-en-gnu-radio-companion/"/>
     <updated>2013-08-20T16:08:00-07:00</updated>
     <id>http://eontool.github.io/blog/2013/08/20/construccion-de-modulos-y-bloques-en-gnu-radio-companion</id>
-    <content type="html"><![CDATA[<p>Los módulos en GNU Radio nos permiten extender la funcionalidad de la plataforma, es decir, podemos construir bloques con nuestro propio código para el procesamiento de datos y así tener mayor flexibilidad al trabajar en un entorno de simulación y emulación.</p>
+    <content type="html"><![CDATA[<p>Los módulos en GNU Radio nos permiten extender la funcionalidad de la plataforma, es decir, podemos construir bloques con nuestro propio código para el procesamiento de datos y así tener mayor poder y flexibilidad.</p>
 
 <!-- more -->
 
 
 <p>Para este tutorial asumimos que completamos satistactoriamente la <a href="http://eontool.github.io/blog/2013/04/30/instalacion-gnuradio-companion-en-ubuntu/">instalación de GNU Radio Companion</a>.</p>
 
-<p>Dentro de nuestra carpeta “grc” creamos otra llamada “módulos”:
+<p>Dentro de nuestra carpeta “grc” ejecutamos el siguiente comando:
 <code>
-$ mkdir modulos &amp;&amp; cd modulos
+$ git clone https://github.com/mbant/gr-modtool.git
+$ cd gr-modtool
 </code></p>
 
-<p>Descargamos gr-modtool, una herramienta que nos facilitará el proceso en la generación de bloques:
-<a href="https://github.com/mbant/gr-modtool">https://github.com/mbant/gr-modtool</a>
-Despues extraemos el contenido del archivo que descargamos en la carpeta "modulos".</p>
-
-<p>Utilizando gr-modtool, crearemos un nuevo módulo llamado “miMod”:
+<p>Utilizando gr_modtool, crearemos un nuevo módulo llamado “pruebas”:
 <code>
-$ gr_moodtool newmod miMod
+$ gr_modtool newmod
+Name of the new module: pruebas
+Creating out-of-tree module in ./gr-pruebas... Done.
+Use 'gr_modtool add' to add a new block to this currently empty module.
 </code></p>
 
-<p>Al revisar el contenido de la carpeta"modulos", vemos que se ha creado una nueva carpeta llamada “gr-miMod”, ahora tenemos que hacer una copia el archivo "gr_moodtool.py" dentro de nuestra nueva carpeta.</p>
+<p>Al revisar el contenido de la carpeta "gr-modtool", vemos que se ha creado una nueva carpeta llamada “gr-pruebas”, ahora tenemos que hacer una copia el archivo "gr_moodtool.py" dentro de nuestra nueva carpeta.
+<code>
+$ cp gr_modtool.py gr-pruebas
+$ cd gr-pruebas
+</code></p>
 
-<p>En nuestra terminal lo veremos de esta manera:
-<div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>hal9000@hal9000:~/grc/modulos<span class="nv">$ </span>gr_modtool newmod miMod
-</span><span class='line'>Creating out-of-tree module in ./gr-miMod... Done.
-</span><span class='line'>Use <span class="s1">&#39;gr_modtool add&#39;</span> to add a new block to this currently empty module.
-</span><span class='line'>hal9000@hal9000:~/grc/modulos<span class="nv">$ </span>ls
-</span><span class='line'>gr-miMod  gr_modtool.py
-</span><span class='line'>hal9000@hal9000:~/grc/modulos<span class="nv">$ </span><span class="nb">cd </span>gr-miMod
-</span><span class='line'>hal9000@hal9000:~/grc/modulos/gr-miMod<span class="err">$</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div></p>
-
-<p>Contenido en la carpeta del modulo "gr-miMod":
+<p>Contenido en la carpeta del modulo "gr-pruebas":
 <img class="center" src="/images/posts/contenido_grc_modtool.png" title="Carpeta" alt="images"></p>
 
-<p>Creación de nuevo bloque llamado "sumador" tipo "general" con las variables tipo "int" llamadas "var1" y "var2":
+<p>Ahora vamos a crear un nuevo bloque de procesamiento:
 <div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
@@ -79,34 +66,262 @@ $ gr_moodtool newmod miMod
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
 <span class='line-number'>17</span>
-<span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>hal9000@hal9000:~/grc/modulos/gr-miMod<span class="nv">$ </span>gr_modtool add sumador
-</span><span class='line'>GNU Radio module name identified: miMod
-</span><span class='line'>Enter code <span class="nb">type</span>:
-</span><span class='line'>Must be one of <span class="o">(</span><span class="s1">&#39;sink&#39;</span>, <span class="s1">&#39;source&#39;</span>, <span class="s1">&#39;sync&#39;</span>, <span class="s1">&#39;decimator&#39;</span>, <span class="s1">&#39;interpolator&#39;</span>, <span class="s1">&#39;general&#39;</span>, <span class="s1">&#39;tagged_stream&#39;</span>, <span class="s1">&#39;hier&#39;</span>, <span class="s1">&#39;noblock&#39;</span><span class="o">)</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>gr_modtool add
+</span><span class='line'>GNU Radio module name identified: pruebas
 </span><span class='line'>Enter code <span class="nb">type</span>: general
 </span><span class='line'>Language: C++
-</span><span class='line'>Block/code identifier: sumador
-</span><span class='line'>Enter valid argument list, including default arguments: int var1, int var2
+</span><span class='line'>Enter name of block/code <span class="o">(</span>without module name prefix<span class="o">)</span>: demo
+</span><span class='line'>Block/code identifier: demo
+</span><span class='line'>Enter valid argument list, including default arguments:
 </span><span class='line'>Add Python QA code? <span class="o">[</span>Y/n<span class="o">]</span>
 </span><span class='line'>Add C++ QA code? <span class="o">[</span>y/N<span class="o">]</span>
-</span><span class='line'>Adding file <span class="s1">&#39;sumador_impl.h&#39;</span>...
-</span><span class='line'>Adding file <span class="s1">&#39;sumador_impl.cc&#39;</span>...
-</span><span class='line'>Adding file <span class="s1">&#39;sumador.h&#39;</span>...
-</span><span class='line'>Editing swig/miMod_swig.i...
-</span><span class='line'>Adding file <span class="s1">&#39;qa_sumador.py&#39;</span>...
+</span><span class='line'>Adding file <span class="s1">&#39;demo_impl.h&#39;</span>...
+</span><span class='line'>Adding file <span class="s1">&#39;demo_impl.cc&#39;</span>...
+</span><span class='line'>Adding file <span class="s1">&#39;demo.h&#39;</span>...
+</span><span class='line'>Editing swig/pruebas_swig.i...
+</span><span class='line'>Adding file <span class="s1">&#39;qa_demo.py&#39;</span>...
 </span><span class='line'>Editing python/CMakeLists.txt...
-</span><span class='line'>Adding file <span class="s1">&#39;miMod_sumador.xml&#39;</span>...
+</span><span class='line'>Adding file <span class="s1">&#39;pruebas_demo.xml&#39;</span>...
 </span><span class='line'>Editing grc/CMakeLists.txt...
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<p>Contenido en la carpeta del modulo "gr-miMod/lib" donde podemos ver dos archivos llamados "sumador_impl.cc" y "sumador_impl.h":
-<img class="center" src="/images/posts/miMod_lib.png" title="Carpeta" alt="images"></p>
+<p>Para poder utilizar nuestro bloque es necesario editar algunas lineas. Iniciemos:</p>
 
-<p>Abrimos el archivo ".cc" y podemos ver una sección donde especifica la parte donde podemos escribir nuestro código.
-<img class="center" src="/images/posts/codigo_do_signal_processing.png" title="Carpeta" alt="images"></p>
+<p>Editamos nuestro archivo "pruebas_demo.xml" en /gr-pruebas/grc/</p>
 
-<p>Hasta este punto hemos creado un módulo y un bloque de procesamiento, en el siguiente tutorial veremos la configuración del bloque y finalizaremos el sumador para probarlo en GNU Radio Companion.</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (pruebas_demo.xml)</span> <a href='/downloads/code/pruebas_demo.xml'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+</pre></td><td class='code'><pre><code class='xml'><span class='line'><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+</span><span class='line'><span class="nt">&lt;block&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;name&gt;</span>demo<span class="nt">&lt;/name&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;key&gt;</span>pruebas_demo<span class="nt">&lt;/key&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;category&gt;</span>pruebas<span class="nt">&lt;/category&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;import&gt;</span>import pruebas<span class="nt">&lt;/import&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;make&gt;</span>pruebas.demo($)<span class="nt">&lt;/make&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;param&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;name&gt;</span>Demo<span class="nt">&lt;/name&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;key&gt;&lt;/key&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;type&gt;</span>int<span class="nt">&lt;/type&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/param&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;sink&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;name&gt;</span>in<span class="nt">&lt;/name&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;type&gt;</span>int<span class="nt">&lt;/type&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/sink&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nt">&lt;source&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;name&gt;</span>out<span class="nt">&lt;/name&gt;</span>
+</span><span class='line'>    <span class="nt">&lt;type&gt;</span>int<span class="nt">&lt;/type&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;/source&gt;</span>
+</span><span class='line'><span class="nt">&lt;/block&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Editamos el archivo "demo_impl.cc" en /gr-pruebas/lib/</p>
+
+<p>Estas son las partes del código que modificaremos:</p>
+
+<p>&lt;+MIN_IN+>, &lt;+MAX_IN+>, &lt;+MIN_OUT+>, &lt;+MAX_OUT+>, &lt;+ITYPE+>, &lt;+OTYPE+>.</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span> (demo_impl.cc)</span> <a href='/downloads/code/demo_impl.cc'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+</pre></td><td class='code'><pre><code class='c++'><span class='line'><span class="cm">/* -*- c++ -*- */</span>
+</span><span class='line'><span class="cm">/* </span>
+</span><span class='line'><span class="cm"> * Copyright 2013 &lt;+YOU OR YOUR COMPANY+&gt;.</span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> * This is free software; you can redistribute it and/or modify</span>
+</span><span class='line'><span class="cm"> * it under the terms of the GNU General Public License as published by</span>
+</span><span class='line'><span class="cm"> * the Free Software Foundation; either version 3, or (at your option)</span>
+</span><span class='line'><span class="cm"> * any later version.</span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> * This software is distributed in the hope that it will be useful,</span>
+</span><span class='line'><span class="cm"> * but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+</span><span class='line'><span class="cm"> * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+</span><span class='line'><span class="cm"> * GNU General Public License for more details.</span>
+</span><span class='line'><span class="cm"> * </span>
+</span><span class='line'><span class="cm"> * You should have received a copy of the GNU General Public License</span>
+</span><span class='line'><span class="cm"> * along with this software; see the file COPYING.  If not, write to</span>
+</span><span class='line'><span class="cm"> * the Free Software Foundation, Inc., 51 Franklin Street,</span>
+</span><span class='line'><span class="cm"> * Boston, MA 02110-1301, USA.</span>
+</span><span class='line'><span class="cm"> */</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#ifdef HAVE_CONFIG_H</span>
+</span><span class='line'><span class="cp">#include &quot;config.h&quot;</span>
+</span><span class='line'><span class="cp">#endif</span>
+</span><span class='line'>
+</span><span class='line'><span class="cp">#include &lt;gnuradio/io_signature.h&gt;</span>
+</span><span class='line'><span class="cp">#include &quot;demo_impl.h&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">namespace</span> <span class="n">gr</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">namespace</span> <span class="n">pruebas</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">demo</span><span class="o">::</span><span class="n">sptr</span>
+</span><span class='line'>    <span class="n">demo</span><span class="o">::</span><span class="n">make</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="n">gnuradio</span><span class="o">::</span><span class="n">get_initial_sptr</span>
+</span><span class='line'>        <span class="p">(</span><span class="k">new</span> <span class="n">demo_impl</span><span class="p">());</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cm">/*</span>
+</span><span class='line'><span class="cm">     * The private constructor</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="n">demo_impl</span><span class="o">::</span><span class="n">demo_impl</span><span class="p">()</span>
+</span><span class='line'>      <span class="o">:</span> <span class="n">gr</span><span class="o">::</span><span class="n">block</span><span class="p">(</span><span class="s">&quot;demo&quot;</span><span class="p">,</span>
+</span><span class='line'>              <span class="n">gr</span><span class="o">::</span><span class="n">io_signature</span><span class="o">::</span><span class="n">make</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)),</span>
+</span><span class='line'>              <span class="n">gr</span><span class="o">::</span><span class="n">io_signature</span><span class="o">::</span><span class="n">make</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)))</span>
+</span><span class='line'>    <span class="p">{}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="cm">/*</span>
+</span><span class='line'><span class="cm">     * Our virtual destructor.</span>
+</span><span class='line'><span class="cm">     */</span>
+</span><span class='line'>    <span class="n">demo_impl</span><span class="o">::~</span><span class="n">demo_impl</span><span class="p">()</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">void</span>
+</span><span class='line'>    <span class="n">demo_impl</span><span class="o">::</span><span class="n">forecast</span> <span class="p">(</span><span class="kt">int</span> <span class="n">noutput_items</span><span class="p">,</span> <span class="n">gr_vector_int</span> <span class="o">&amp;</span><span class="n">ninput_items_required</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="cm">/* &lt;+forecast+&gt; e.g. ninput_items_required[0] = noutput_items */</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kt">int</span>
+</span><span class='line'>    <span class="n">demo_impl</span><span class="o">::</span><span class="n">general_work</span> <span class="p">(</span><span class="kt">int</span> <span class="n">noutput_items</span><span class="p">,</span>
+</span><span class='line'>                       <span class="n">gr_vector_int</span> <span class="o">&amp;</span><span class="n">ninput_items</span><span class="p">,</span>
+</span><span class='line'>                       <span class="n">gr_vector_const_void_star</span> <span class="o">&amp;</span><span class="n">input_items</span><span class="p">,</span>
+</span><span class='line'>                       <span class="n">gr_vector_void_star</span> <span class="o">&amp;</span><span class="n">output_items</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">{</span>
+</span><span class='line'>        <span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="n">in</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">input_items</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>        <span class="kt">int</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span> <span class="o">*</span><span class="p">)</span> <span class="n">output_items</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Do &lt;+signal processing+&gt;</span>
+</span><span class='line'>        <span class="c1">// Tell runtime system how many input items we consumed on</span>
+</span><span class='line'>        <span class="c1">// each input stream.</span>
+</span><span class='line'>        <span class="n">consume_each</span> <span class="p">(</span><span class="n">noutput_items</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="c1">// Tell runtime system how many output items we produced.</span>
+</span><span class='line'>        <span class="k">return</span> <span class="n">noutput_items</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="p">}</span> <span class="cm">/* namespace pruebas */</span>
+</span><span class='line'><span class="p">}</span> <span class="cm">/* namespace gr */</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>Para compilar nuestro módulo y bloque creamos un directorio "build" en la carpeta gr-pruebas y dentro de el ejecutamos los siguientes comandos:</p>
+
+<p><code>
+$ mkdir build &amp;&amp; cd build
+$ cmake ../
+$ sudo make
+$ sudo make install
+$ sudo ldconfig
+</code></p>
+
+<p>Para utilizar nuestro bloque, ejecutamos gnuradio-companion y de lado derecho habrá un nuevo módulo llamado "pruebas" y dentro de este nuestro bloque "demo".</p>
+
+<p><img class="center" src="/images/posts/gnuradio-pruebas-demo.png" title="GNU Radio" alt="images"></p>
+
+<p>Hasta este punto hemos creado un módulo y un bloque de procesamiento, en el siguiente tutorial veremos la creación de un bloque con entradas y salidas funcionales para probarlo en GNU Radio Companion.</p>
 ]]></content>
   </entry>
   
